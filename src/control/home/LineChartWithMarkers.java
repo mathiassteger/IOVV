@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.Axis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.ValueAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.shape.Line;
 
 import java.util.Objects;
@@ -55,5 +56,4 @@ public class LineChartWithMarkers<X, Y> extends LineChart {
             line.toFront();
         }
     }
-
 }

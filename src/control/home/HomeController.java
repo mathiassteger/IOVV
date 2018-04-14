@@ -56,7 +56,12 @@ public class HomeController implements Observer {
     private XYChart.Data[][] seriesYData;
     private XYChart.Data[][] seriesZData;
 
+    private XYChart.Series[] magXSeriesArray;
+    private XYChart.Series[] magYSeriesArray;
+    private XYChart.Series[] magZSeriesArray;
+
     private int currChartIndex = -1;
+    private int currentSecond = -1;
 
     public void setModel(Model model) {
         this.model = model;
@@ -141,7 +146,10 @@ public class HomeController implements Observer {
             }
             this.lblSoftmax.setText(model.getCertainties()[index]);
             this.lblIndex.setText("Index: " + index);
-            verticalMarker.setXValue((seconds * 100) % (model.getSequenceLength() * 100));
+            if (currentSecond != (int) seconds) {
+                verticalMarker.setXValue((seconds * 100) % (model.getSequenceLength() * 100));
+                currentSecond = (int) seconds;
+            }
             fillChart(index);
         } else {
             this.lblIndex.setText("Index: OOB");
@@ -151,6 +159,7 @@ public class HomeController implements Observer {
     }
 
     public void makeChart() {
+
         final NumberAxis xAxis = new NumberAxis();
         final NumberAxis yAxis = new NumberAxis();
         lineChart = new LineChartWithMarkers<>(xAxis, yAxis);
@@ -158,9 +167,13 @@ public class HomeController implements Observer {
         seriesY = new XYChart.Series();
         seriesZ = new XYChart.Series();
 
-        seriesXData = new XYChart.Data[model.getMagX().length][model.getSequenceLength()*100];
-        seriesYData = new XYChart.Data[model.getMagY().length][model.getSequenceLength()*100];
-        seriesZData = new XYChart.Data[model.getMagZ().length][model.getSequenceLength()*100];
+        seriesXData = new XYChart.Data[model.getMagX().length][model.getSequenceLength() * 100];
+        seriesYData = new XYChart.Data[model.getMagY().length][model.getSequenceLength() * 100];
+        seriesZData = new XYChart.Data[model.getMagZ().length][model.getSequenceLength() * 100];
+
+        this.magXSeriesArray = new XYChart.Series[model.getMagX().length];
+        this.magYSeriesArray = new XYChart.Series[model.getMagX().length];
+        this.magZSeriesArray = new XYChart.Series[model.getMagX().length];
 
         for (int i = 0; i < model.getMagX().length; i++) {
             for (int j = 0; j < model.getMagX()[i].length; j++) {
@@ -168,28 +181,33 @@ public class HomeController implements Observer {
                 seriesYData[i][j] = new XYChart.Data(j, model.getMagY()[i][j]);
                 seriesZData[i][j] = new XYChart.Data(j, model.getMagZ()[i][j]);
             }
+
+            this.magXSeriesArray[i] = new XYChart.Series();
+            this.magXSeriesArray[i].getData().addAll(seriesXData[i]);
+            this.magYSeriesArray[i] = new XYChart.Series();
+            this.magYSeriesArray[i].getData().addAll(seriesYData[i]);
+            this.magZSeriesArray[i] = new XYChart.Series();
+            this.magZSeriesArray[i].getData().addAll(seriesZData[i]);
         }
 
         lineChart.addVerticalValueMarker(verticalMarker);
-        lineChart.getData().addAll(seriesX, seriesY, seriesZ);
         lineChart.setAnimated(false);
         lineChart.setCreateSymbols(false);
-        lineChart.setStyle("-fx-stroke-width: 50px;");
+        lineChart.setStyle("-fx-stroke-width: 2px;");
         vbBelowVideo.getChildren().add(lineChart);
+
     }
 
-    void fillChart(int index){
-        if(index != currChartIndex) {
-            seriesX.getData().clear();
-            seriesY.getData().clear();
-            seriesZ.getData().clear();
+    void fillChart(int index) {
 
-            seriesX.getData().addAll(seriesXData[index]);
-            seriesY.getData().addAll(seriesYData[index]);
-            seriesZ.getData().addAll(seriesZData[index]);
+        if (index != currChartIndex) {
+            lineChart.getData().clear();
+
+            lineChart.getData().addAll(this.magXSeriesArray[index], this.magYSeriesArray[index], this.magZSeriesArray[index]);
 
             currChartIndex = index;
         }
+
     }
 
 
