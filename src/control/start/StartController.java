@@ -23,6 +23,12 @@ public class StartController {
     CheckBox cbVideo;
     @FXML
     CheckBox cbLabel;
+    @FXML
+    CheckBox cbMagX;
+    @FXML
+    CheckBox cbMagY;
+    @FXML
+    CheckBox cbMagZ;
 
     @FXML
     public void onStart() {
@@ -51,6 +57,10 @@ public class StartController {
             this.model.setVStart(temp.getVStart());
             this.model.setLStart(temp.getVStart());
             this.model.calculateDelta();
+            this.model.setMagX(temp.getMagX());
+            this.model.setMagY(temp.getMagY());
+            this.model.setMagZ(temp.getMagZ());
+
 
             tfVStart.getScene().getWindow().hide();
             model.openHome();
@@ -203,6 +213,74 @@ public class StartController {
         }
 
         String[] out = temp.toArray(new String[temp.size()]);
+
+        return out;
+    }
+
+    @FXML
+    public void onLoadX(){
+        FileChooser fc = new FileChooser();
+        fc.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Choose MagX-File", "*.txt"));
+        File file = fc.showOpenDialog(tfVStart.getScene().getWindow());
+
+        if (file == null)
+            return;
+
+        ArrayList<String> lines = getLines(file);
+
+        model.setMagX(getData(lines));
+
+        this.cbMagX.setSelected(true);
+    }
+
+    @FXML
+    public void onLoadY(){
+        FileChooser fc = new FileChooser();
+        fc.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Choose MagY-File", "*.txt"));
+        File file = fc.showOpenDialog(tfVStart.getScene().getWindow());
+
+        if (file == null)
+            return;
+
+        ArrayList<String> lines = getLines(file);
+
+        model.setMagY(getData(lines));
+
+        this.cbMagY.setSelected(true);
+    }
+
+    public void onLoadZ(){
+        FileChooser fc = new FileChooser();
+        fc.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Choose MagZ-File", "*.txt"));
+        File file = fc.showOpenDialog(tfVStart.getScene().getWindow());
+
+        if (file == null)
+            return;
+
+        ArrayList<String> lines = getLines(file);
+
+        model.setMagZ(getData(lines));
+
+        this.cbMagZ.setSelected(true);
+    }
+
+    private float[][] getData(ArrayList<String> lines){
+        float[][] out = new float[lines.size()][Integer.parseInt(tfSeqLength.getText())];
+
+        float[] temp;
+        for (int i = 0; i < lines.size(); i++) {
+            String[] floats = lines.get(i).split(" ");
+            temp = new float[Integer.parseInt(tfSeqLength.getText())];
+
+            for (int j = 0; j < floats.length; j++) {
+                temp[j] = Float.parseFloat(floats[j]);
+            }
+
+            out[i] = temp;
+        }
 
         return out;
     }

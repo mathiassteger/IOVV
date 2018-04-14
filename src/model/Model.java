@@ -21,6 +21,10 @@ public class Model extends Observable implements Serializable {
     public static final String START_WINDOW = "/view/start/Start.fxml";
     public static final String HOME_WINDOW = "/view/home/Home.fxml";
 
+    float[][] magX;
+    float[][] magY;
+    float[][] magZ;
+
     String[] labels, certainties;
     String VPath, LPath;
     String VStart, LStart;
@@ -43,10 +47,33 @@ public class Model extends Observable implements Serializable {
             Date date1 = format.parse(VStart);
             Date date2 = format.parse(LStart);
             delta = (int) ((date2.getTime() - date1.getTime()) / 1000); // Milliseconds -> Seconds
-            System.out.println(delta);
         } catch (ParseException e){
             System.out.println("Cannot parse time");
         }
+    }
+
+    public float[][] getMagX() {
+        return magX;
+    }
+
+    public void setMagX(float[][] magX) {
+        this.magX = magX;
+    }
+
+    public float[][] getMagY() {
+        return magY;
+    }
+
+    public void setMagY(float[][] magY) {
+        this.magY = magY;
+    }
+
+    public float[][] getMagZ() {
+        return magZ;
+    }
+
+    public void setMagZ(float[][] magZ) {
+        this.magZ = magZ;
     }
 
     public int getSequenceLength() {

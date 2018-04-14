@@ -27,7 +27,11 @@
                   <MediaView fx:id="mvVideo" fitHeight="200.0" fitWidth="200.0" BorderPane.alignment="CENTER" />
                </center>
                <bottom>
-                  <Slider fx:id="slSeek" BorderPane.alignment="CENTER" />
+                  <VBox fx:id="vbBelowVideo" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Slider fx:id="slSeek" />
+                     </children>
+                  </VBox>
                </bottom>
             </BorderPane>
             <BorderPane mouseTransparent="true" prefHeight="200.0" prefWidth="200.0">

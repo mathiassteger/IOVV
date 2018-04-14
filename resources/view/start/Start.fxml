@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="351.0" prefWidth="242.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.start.StartController">
    <children>
-      <VBox alignment="CENTER" prefHeight="351.0" prefWidth="272.0" spacing="20.0">
+      <VBox alignment="CENTER" prefHeight="479.0" prefWidth="272.0" spacing="20.0">
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
@@ -45,6 +45,27 @@
                <children>
                   <Label text="Start:" />
                   <TextField fx:id="tfLStart" />
+               </children>
+            </HBox>
+            <Separator prefWidth="200.0" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <Label text="MagX:" />
+                  <Button mnemonicParsing="false" onAction="#onLoadX" text="Laden" />
+                  <CheckBox fx:id="cbMagX" mnemonicParsing="false" mouseTransparent="true" />
+               </children></HBox>
+            <HBox alignment="CENTER" layoutX="20.0" layoutY="438.0" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <Label text="MagY:" />
+                  <Button mnemonicParsing="false" onAction="#onLoadY" text="Laden" />
+                  <CheckBox fx:id="cbMagY" mnemonicParsing="false" mouseTransparent="true" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="20.0" layoutY="390.0" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <Label text="MagZ:" />
+                  <Button mnemonicParsing="false" onAction="#onLoadZ" text="Laden" />
+                  <CheckBox fx:id="cbMagZ" mnemonicParsing="false" mouseTransparent="true" />
                </children>
             </HBox>
             <Separator prefWidth="200.0" />
