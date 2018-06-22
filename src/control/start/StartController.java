@@ -55,7 +55,7 @@ public class StartController {
             this.model.setCertainties(temp.getCertainties());
             this.model.setSequenceLength(temp.getSequenceLength());
             this.model.setVStart(temp.getVStart());
-            this.model.setLStart(temp.getVStart());
+            this.model.setLStart(temp.getLStart());
             this.model.calculateDelta();
             this.model.setMagX(temp.getMagX());
             this.model.setMagY(temp.getMagY());

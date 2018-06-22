@@ -147,7 +147,7 @@ public class HomeController implements Observer {
             this.lblSoftmax.setText(model.getCertainties()[index]);
             this.lblIndex.setText("Index: " + index);
             if (currentSecond != (int) seconds) {
-                verticalMarker.setXValue((seconds * 100) % (model.getSequenceLength() * 100));
+                verticalMarker.setXValue(((seconds-model.getDelta()) * 100) % (model.getSequenceLength() * 100));
                 currentSecond = (int) seconds;
             }
             fillChart(index);
