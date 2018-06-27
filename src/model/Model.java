@@ -25,7 +25,7 @@ public class Model extends Observable implements Serializable {
     float[][] magY;
     float[][] magZ;
 
-    String[] labels, certainties;
+    String[] labels;
     String VPath, LPath;
     String VStart, LStart;
     transient Duration duration;
@@ -98,14 +98,6 @@ public class Model extends Observable implements Serializable {
 
     public void setDuration(Duration duration) {
         this.duration = duration;
-    }
-
-    public String[] getCertainties() {
-        return certainties;
-    }
-
-    public void setCertainties(String[] certainties) {
-        this.certainties = certainties;
     }
 
     public void setVPath(String VPath) {

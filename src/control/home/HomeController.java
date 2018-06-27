@@ -39,8 +39,6 @@ public class HomeController implements Observer {
     @FXML
     private Label lblLabel;
     @FXML
-    private Label lblSoftmax;
-    @FXML
     private Label lblIndex;
     @FXML
     private VBox vbBelowVideo;
@@ -69,7 +67,6 @@ public class HomeController implements Observer {
         lblDuration.setStyle("-fx-background-color: white");
         lblClock.setStyle("-fx-background-color: white");
         lblLabel.setStyle("-fx-background-color: white");
-        lblSoftmax.setStyle("-fx-background-color: white");
         lblIndex.setStyle("-fx-background-color: white");
         verticalMarker = new XYChart.Data<>(0, 0);
         makeChart();
@@ -132,19 +129,17 @@ public class HomeController implements Observer {
 
             if (index >= model.getLabels().length) {
                 this.lblIndex.setText("Index: OOB");
-                this.lblSoftmax.setText("UNKNOWN");
                 this.lblLabel.setText("UNKNOWN");
                 return;
             }
 
-            String prediction = model.getLabels()[index];
+            String prediction = model.getLabels()[index].equals("0") ? "Inside" : "Outside";
             this.lblLabel.setText(prediction);
-            if (prediction.contains("INSIDE")) {
+            if (prediction.contains("0")) {
                 this.lblLabel.setTextFill(Color.GREEN);
             } else {
                 this.lblLabel.setTextFill(Color.RED);
             }
-            this.lblSoftmax.setText(model.getCertainties()[index]);
             this.lblIndex.setText("Index: " + index);
             if (currentSecond != (int) seconds) {
                 verticalMarker.setXValue(((seconds-model.getDelta()) * 100) % (model.getSequenceLength() * 100));
@@ -153,7 +148,6 @@ public class HomeController implements Observer {
             fillChart(index);
         } else {
             this.lblIndex.setText("Index: OOB");
-            this.lblSoftmax.setText("UNKNOWN");
             this.lblLabel.setText("UNKNOWN");
         }
     }

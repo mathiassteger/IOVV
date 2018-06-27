@@ -52,7 +52,6 @@ public class StartController {
                 return;
             this.model.setVPath(temp.getVPath());
             this.model.setLabels(temp.getLabels());
-            this.model.setCertainties(temp.getCertainties());
             this.model.setSequenceLength(temp.getSequenceLength());
             this.model.setVStart(temp.getVStart());
             this.model.setLStart(temp.getLStart());
@@ -149,7 +148,7 @@ public class StartController {
     public void onLabelLoad() {
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Choose TXT-File", "*.txt"));
+                new FileChooser.ExtensionFilter("Choose Label-File", "*.csv"));
         File file = fc.showOpenDialog(tfVStart.getScene().getWindow());
 
         if (file == null)
@@ -158,7 +157,6 @@ public class StartController {
         ArrayList<String> lines = getLines(file);
 
         model.setLabels(getLabels(lines));
-        model.setCertainties(getCertainties(lines));
 
         this.cbLabel.setSelected(true);
     }
@@ -188,31 +186,7 @@ public class StartController {
     }
 
     public String[] getLabels(ArrayList<String> lines) {
-        ArrayList<String> temp = new ArrayList<>();
-
-        for (String line : lines) {
-            if (line.contains("Result")) {
-                String[] parts = line.split(":");
-                temp.add(parts[1].substring(1));
-            }
-        }
-
-        String[] out = temp.toArray(new String[temp.size()]);
-
-        return out;
-    }
-
-    public String[] getCertainties(ArrayList<String> lines) {
-        ArrayList<String> temp = new ArrayList<>();
-
-        for (String line : lines) {
-            if (line.contains("Softmax")) {
-                String[] parts = line.split(":");
-                temp.add(parts[2]);
-            }
-        }
-
-        String[] out = temp.toArray(new String[temp.size()]);
+        String[] out = lines.toArray(new String[lines.size()]);
 
         return out;
     }

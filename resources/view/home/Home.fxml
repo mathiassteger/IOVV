@@ -46,10 +46,6 @@
                            <font>
                               <Font size="25.0" />
                            </font></Label>
-                        <Label fx:id="lblSoftmax" text="Softmax">
-                           <font>
-                              <Font size="25.0" />
-                           </font></Label>
                      </children>
                   </VBox>
                </right>
